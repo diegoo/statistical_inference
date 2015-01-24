@@ -1,0 +1,109 @@
+---
+title: "Statistical Inference Course Project - Part 1"
+author: "Diego Dell'Era"
+output: pdf_document
+---
+
+Exponential Distribution
+========================
+
+# Main goal
+
+```
+Illustrate the properties of the distribution of the mean of 40 exponentials.
+```
+
+# 1. Show the sample mean and compare it to the theoretical mean of the distribution
+
+### Initialize an array to store the means
+```{r, results='markup'}
+means <- 1:1000
+```
+
+### Run the simulations
+
+Set the given parameters
+
+```{r, results='markup'}
+lambda <- 0.2
+observations <- 40
+```
+
+For each simulation, generate the exponential distribution, calculate its mean and store it in the ```means``` array
+
+```{r, results='markup'}
+set.seed(20150124)
+for (simulation in 1:1000) { means[simulation] <- mean(rexp(n = observations, rate = lambda)) }
+```
+
+### Compare the mean of the simulations means and the theoretical mean
+
+The theoretical sample mean for an exponential distribution is $$\bar{X} = \mu = \frac{1} {\lambda}$$
+
+Calculate the difference between sample and theoretical means
+
+```{r, results='markup'}
+simulations_mean_of_means <- mean(means)
+theoretical_mean <- 1/lambda
+mean_difference <- abs(theoretical_mean - simulations_mean_of_means)
+```
+
+simulations_mean_of_means: `r simulations_mean_of_means`
+
+theoretical_mean: `r theoretical_mean`
+
+difference: `r mean_difference`
+
+This minimal difference shows that the means are very similar, therefore the predicted mean is a good approximation. 
+
+# 2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution
+
+The theoretical variance of the sample mean distribution is the population variance divided by the sample size $$\frac{sigma^2} {observations}$$
+
+The value of the standard deviation $\sigma$ for an exponential distribution is, we are told, $$\frac{1} {\lambda}$$
+Calculate the difference between sample and theoretical variances
+
+```{r, results='markup'}
+simulations_variance <- var(means)
+theoretical_variance <- (1/lambda)^2 / observations 
+variance_difference <- abs(theoretical_variance - simulations_variance)
+```
+
+simulations_variance: `r simulations_variance`
+
+theoretical_variance: `r theoretical_variance`
+
+variance_difference: `r variance_difference`
+
+This minimal difference shows that the variances are very similar.
+
+# 3. Show that the distribution is approximately normal
+
+Normal distributions are defined by two parameters, the mean and the standard deviation.
+
+The sample and theoretical means have already been shown to be similar.
+
+Graphically, the theoretical mean (in blue) and the sample mean (in red) almost overlap, which means that the sample means really are centered around the theoretical mean. The resulting distribution is caracteristically bell-shaped and symmetrical.
+
+```{r, results='markup', fig.width=12}
+hist(means, breaks=40, ylab="density")
+abline(v = theoretical_mean, col = "blue")
+abline(v = simulations_mean_of_means, col = "red")
+```
+
+The same applies for the standard deviation.
+
+The theoretical standard deviation for an exponential distribution is $$\sigma = \frac{1} {\lambda}$$
+
+
+```{r, results='markup'}
+simulations_sd <- sd(means)
+theoretical_sd <- 1/lambda
+sd_difference <- abs(theoretical_sd - simulations_sd)
+```
+
+simulations_sd: `r simulations_sd`
+
+theoretical_sd: `r theoretical_sd`
+
+sd_difference: `r sd_difference`

@@ -2,15 +2,18 @@
 
 ### Build project, part 1:
 
-- Knith the pretty html:
-
 ```
 library(knitr)
 knit2html("statinference.project.part.1.Rmd")
 ```
 
-- Knit the pdf:
+### Build project, part 2:
+
+```
+library(knitr)
+knit2html("statinference.project.part.2.Rmd")
+```
+
+### Knit the PDFs:
 
 Couldn't get the pandoc+knitr .pdf thingy to work; just print it via Chrome :(
-
-### Build project, part 2:

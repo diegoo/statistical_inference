@@ -1,0 +1,61 @@
+---
+title: "Statistical Inference Course Project - Part 2"
+author: "Diego Dell'Era"
+output: pdf_document
+---
+
+Tooth Growth
+============
+
+
+
+State your conclusions and the assumptions needed for your conclusions.
+
+# Main goal
+
+```
+Analyze the ToothGrowth dataset. Perform a basic inferential data analysis.
+```
+
+# Exploratory analysis
+
+### Load the dataset
+
+```{r, results='markup'}
+data(ToothGrowth)
+summary(ToothGrowth)
+```
+
+The dataset analyzes the effect of vitamin C on tooth growth in guinea pigs. 
+
+It contains `r dim(ToothGrowth)[1]` observations.
+
+```
+[,1]  len   numeric  Tooth length                <- this variable depends on the other two variables 
+[,2]  supp  factor   Supplement type (VC or OJ). <- independent variable
+[,3]  dose  numeric  Dose in milligrams.         <- independent variable
+```
+
+### Plot the dataset, isolating the independent variables
+
+First, tooth length as a function of the supplement type. Then, tooth length as a function of the dose.
+
+```{r, results='markup', fig.width=10}
+par(mfrow=c(1,2))
+boxplot(len ~ supp,
+	    data = ToothGrowth,
+	    xlab = "supplement type",
+	    ylab = "tooth length",
+	    main = "Tooth growth | supplement type")
+boxplot(len ~ dose,
+	    data = ToothGrowth,
+	    xlab = "dose (in ml.)",
+	    ylab = "tooth length",
+	    main = "Tooth growth | dose")
+```
+
+### Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.
+
+```{r, results='markup'}
+t.test(len ~ dose, data=ToothGrowth)
+```
